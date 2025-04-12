@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ParkingSystemV3</string>
+
+    <!-- 主界面 -->
+    <string name="available_spots">可用停车位</string>
+    <string name="view_reservations">查看我的预约</string>
+
+    <!-- 预约界面 -->
+    <string name="user_info">用户信息</string>
+    <string name="name_hint">姓名</string>
+    <string name="license_plate_hint">车牌号</string>
+    <string name="reservation_time">预约时间</string>
+    <string name="select_date">选择日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="confirm_reservation">确认预约</string>
+
+    <!-- 支付界面 -->
+    <string name="reservation_details">预约详情</string>
+    <string name="payment_method">支付方式</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="alipay">支付宝</string>
+    <string name="bank_card_pay">银行卡支付</string>
+    <string name="pay_now">立即支付</string>
+</resources>

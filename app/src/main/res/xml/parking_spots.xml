@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parkingSpots>
+    <parkingSpot id="A1" location="Floor 1 Zone A" available="true"/>
+    <parkingSpot id="A2" location="Floor 1 Zone A" available="false"/>
+    <parkingSpot id="B1" location="Floor 1 Zone B" available="true"/>
+    <parkingSpot id="B2" location="Floor 1 Zone B" available="false"/>
+    <parkingSpot id="C1" location="Floor 2 Zone C" available="true"/>
+    <parkingSpot id="C2" location="Floor 2 Zone C" available="false"/>
+</parkingSpots>

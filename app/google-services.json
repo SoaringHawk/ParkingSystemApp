@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "901228917393",
+    "project_id": "parkingreservationapp-824d5",
+    "storage_bucket": "parkingreservationapp-824d5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901228917393:android:4f326be0bab7c951948530",
+        "android_client_info": {
+          "package_name": "com.example.parkingreservationapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0203Xo7CAnwb8AmZDFOQucX68cUO_Jdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
