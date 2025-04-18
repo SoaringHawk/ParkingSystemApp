@@ -12,26 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ParkingReservationApp"
         tools:targetApi="31">
-
-        <!-- Set WelcomeActivity as the launcher activity -->
+        <activity
+            android:name=".activities.ReservationPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Myreservation"
+            android:exported="false" /> <!-- Set WelcomeActivity as the launcher activity -->
         <activity
             android:name=".activities.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Declare new activities -->
+        </activity> <!-- Declare new activities -->
         <activity android:name=".activities.AdminLoginActivity" />
-        <activity android:name=".activities.AdminDashboardActivity" />
-
-        <!-- Other existing activities -->
+        <activity android:name=".activities.AdminDashboardActivity" /> <!-- Other existing activities -->
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.ReservationActivity" />
         <activity android:name=".activities.PaymentActivity" />
-
     </application>
 
 </manifest>

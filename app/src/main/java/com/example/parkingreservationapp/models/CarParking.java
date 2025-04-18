@@ -1,9 +1,15 @@
 package com.example.parkingreservationapp.models
         ;
 
+import java.io.Serializable;
+
 // Car parking spot class, extends from ParkingSpot
-public class CarParking extends ParkingSpot {
+public class CarParking extends ParkingSpot implements Serializable {
     // Constructor with ID and location
+
+    public CarParking() {
+        super("", ""); // This is required for Firestore deserialization
+    }
     public CarParking(String id, String location) {
         super(id, location);
     }

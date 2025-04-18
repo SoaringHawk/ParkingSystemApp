@@ -32,27 +32,26 @@
         android:layout_marginBottom="8dp"/>
 
     <RadioGroup
+        android:id="@+id/paymentMethodGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="24dp">
 
         <RadioButton
+            android:id="@+id/rbCash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WeChat Pay"
+            android:text="Cash"
             android:checked="true"/>
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alipay"/>
-
-        <RadioButton
+            android:id="@+id/rbCreditCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Credit Card"/>
     </RadioGroup>
+
 
     <Button
         android:id="@+id/btnPay"

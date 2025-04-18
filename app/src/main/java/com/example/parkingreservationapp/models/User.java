@@ -1,7 +1,9 @@
 package com.example.parkingreservationapp.models;
 
+import java.io.Serializable;
+
 // Class for user information
-public class User {
+public class User implements Serializable {
     private String name;
     private String licensePlate;
 

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -160,53 +161,42 @@ public class ReservationActivity extends AppCompatActivity {
         String name = etName.getText().toString().trim();
         String licensePlate = etLicensePlate.getText().toString().trim();
 
-        // Validate that the user's name and license plate are provided
         if (name.isEmpty() || licensePlate.isEmpty()) {
             Toast.makeText(this, "Please enter your name and license plate number.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validate that a date has been selected
         if (selectedDate == null) {
             Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validate that a start time has been selected
         if (btnSelectStartTime.getText().toString().equals("Select Start Time") || startTime == null) {
             Toast.makeText(this, "Please select a start time.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validate that an end time has been selected
         if (btnSelectEndTime.getText().toString().equals("Select End Time") || endTime == null) {
             Toast.makeText(this, "Please select an end time.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validate that the end time is after the start time
         if (!endTime.after(startTime)) {
             Toast.makeText(this, "End time must be after start time.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a User object with the provided name and license plate
         User user = new User(name, licensePlate);
-
-        // Calculate the price based on duration; for example, 10 units per hour
         long durationInMillis = endTime.getTime() - startTime.getTime();
         double durationInHours = durationInMillis / (1000.0 * 60.0 * 60.0);
         double price = durationInHours * 10;
 
-        // Create a ParkingSpot instance using a concrete subclass.
-        // Here we use CarParking. You can switch to TruckParking if needed.
         ParkingSpot parkingSpot = new CarParking(spotId, "Sample Location");
         parkingSpot.occupied();
 
-        // Create the Reservation object.
         Reservation reservation = new Reservation(user, parkingSpot, startTime, endTime, price);
 
-        // Show an AlertDialog as an electronic receipt
+        // Go directly to PaymentActivity with the reservation
         showReceiptDialog(reservation);
     }
 
@@ -230,13 +220,27 @@ public class ReservationActivity extends AppCompatActivity {
                 .setMessage(message)
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.dismiss();
+                    Log.d("ReservationActivity", "Launching PaymentActivity...");
                     // After showing the receipt, navigate back to the main activity.
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("spotId", reservation.getParkingSpot().getId());
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
+                    Intent intent = new Intent(ReservationActivity.this, PaymentActivity.class);
+                    intent.putExtra("reservationId", reservation.getId());
+                    startActivityForResult(intent, 2);
                 })
                 .setCancelable(false)
                 .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            // Pass result back to MainActivity
+            String spotId = data.getStringExtra("spotId");
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("spotId", spotId);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package PaymentAdapterPackage;
+package  com.example.parkingreservationapp.PaymentAdapterPackage;
 
 public class CashPayment extends GlobalPayments{
     @Override

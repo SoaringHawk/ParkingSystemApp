@@ -29,6 +29,19 @@ public class ParkingLotManager {
             System.out.println(spot.getDescription());
         }
     }
+
+    public void updateSpotAvailability(String spotId, boolean available) {
+        for (ParkingSpot spot : spots) {
+            if (spot.getId().equals(spotId)) {
+                if (available) {
+                    spot.Available();
+                } else {
+                    spot.occupied();
+                }
+                break;
+            }
+        }
+    }
     public List<ParkingSpot> getSpots() {
         return spots;
     }

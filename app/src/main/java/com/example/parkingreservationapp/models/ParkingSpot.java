@@ -1,15 +1,16 @@
 package com.example.parkingreservationapp.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class ParkingSpot {
+public abstract class ParkingSpot implements Serializable {
     private String id;
     private String location;
     private boolean isAvailable;
     private Date reservedUntil;
+    private String type; // Add the type field
 
     IParkingState parkingState;
-
 
     public ParkingSpot(String id, String location) {
         this.id = id;
@@ -28,22 +29,18 @@ public abstract class ParkingSpot {
     }
 
     public boolean isAvailable() {
-        if (parkingState instanceof OccupiedState){
-            return false;
-        }else{
-            return true;
-        }
+        return parkingState instanceof AvailableState;
     }
 
     public void setAvailable(IParkingState state) {
         parkingState = state;
     }
 
-    public void occupied(){
+    public void occupied() {
         parkingState.occupied(this);
     }
 
-    public void Available(){
+    public void Available() {
         parkingState.Available(this);
     }
 
@@ -55,6 +52,14 @@ public abstract class ParkingSpot {
         this.reservedUntil = reservedUntil;
     }
 
-    public abstract String getDescription();
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public abstract String getDescription();
 }
+

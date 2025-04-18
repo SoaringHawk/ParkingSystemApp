@@ -1,4 +1,4 @@
-package PaymentAdapterPackage;
+package  com.example.parkingreservationapp.PaymentAdapterPackage;
 
 public class CreditCardPayment extends GlobalPayments{
     public void makePayment(double amount) {
