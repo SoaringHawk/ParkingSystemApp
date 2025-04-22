@@ -45,7 +45,7 @@ public class PaymentActivity extends AppCompatActivity {
                 "Time: " + TimeUtils.formatDateTime(reservation.getStartTime()) + " - " +
                 TimeUtils.formatTime(reservation.getEndTime()) + "\n" +
                 "License Plate: " + reservation.getUser().getLicensePlate() + "\n" +
-                "Price: ¥" + reservation.getPrice();
+                "Price: $" + reservation.getPrice();
 
         tvReservationDetails.setText(details);
     }

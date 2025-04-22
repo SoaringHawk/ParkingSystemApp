@@ -166,6 +166,19 @@ public class ReservationActivity extends AppCompatActivity {
             return;
         }
 
+        if (!name.matches("^[a-zA-Z ]+$")) {
+            Toast.makeText(this, "Name cannot contain numbers or symbols.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        licensePlate = licensePlate.toUpperCase();
+
+        if (!licensePlate.matches("^[A-Z0-9]{6,8}$")) {
+            Toast.makeText(this, "License plate must be 6–8 characters (A-Z, 0–9 only).", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         if (selectedDate == null) {
             Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
             return;
