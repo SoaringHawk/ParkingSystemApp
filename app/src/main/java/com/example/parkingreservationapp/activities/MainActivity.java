@@ -43,10 +43,11 @@ public class MainActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
-        // Button to view reservations
+         //Button to view reservations
         Button btnViewReservations = findViewById(R.id.btnViewReservations);
         btnViewReservations.setOnClickListener(v -> {
-            // TODO: Implement viewing of reservations
+            Intent intent = new Intent(this, AllReservationsActivity.class);
+            startActivity(intent);
         });
     }
 

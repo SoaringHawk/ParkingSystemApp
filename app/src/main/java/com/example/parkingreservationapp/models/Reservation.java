@@ -13,6 +13,11 @@ public class Reservation implements Serializable {
     private double price;
     private boolean isPaid;
 
+
+    public Reservation() {
+        // Required for Firestore
+    }
+
     // Constructor for reservation
     public Reservation(User user, ParkingSpot parkingSpot, Date startTime, Date endTime, double price) {
         this.user = user;
@@ -26,6 +31,10 @@ public class Reservation implements Serializable {
     // Getters and setters
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public User getUser() {

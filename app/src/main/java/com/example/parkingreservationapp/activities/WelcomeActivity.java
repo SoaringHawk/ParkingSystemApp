@@ -21,14 +21,14 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         // Initialize UI components from the layout
-        btnAdmin = findViewById(R.id.btnAdmin);
+        //btnAdmin = findViewById(R.id.btnAdmin);
         btnCustomer = findViewById(R.id.btnCustomer);
 
         // When Admin button is clicked, navigate to AdminLoginActivity
-        btnAdmin.setOnClickListener(v -> {
-            Intent intent = new Intent(WelcomeActivity.this, AdminLoginActivity.class);
-            startActivity(intent);
-        });
+//        btnAdmin.setOnClickListener(v -> {
+//            Intent intent = new Intent(WelcomeActivity.this, AdminLoginActivity.class);
+//            startActivity(intent);
+//        });
 
         // When Customer button is clicked, navigate to MainActivity (customer main page)
         btnCustomer.setOnClickListener(v -> {

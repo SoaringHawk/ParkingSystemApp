@@ -184,15 +184,18 @@ public class ReservationPaymentActivity extends AppCompatActivity {
 
         reservation.setPaid(true);
 
-        // Update Firestore
+        // Update parking spot availability in Firestore
         updateParkingSpotInFirestore(reservation.getParkingSpot().getId(), false, endTime);
+
+        // Save the reservation to Firestore
+        saveReservationToFirestore();
 
         // Return the spot ID to MainActivity
         Intent resultIntent = new Intent();
         resultIntent.putExtra("spotId", reservation.getParkingSpot().getId());
         setResult(RESULT_OK, resultIntent);
 
-        Toast.makeText(this, "Payment successful!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Payment successful! Reservation created.", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -220,13 +223,18 @@ public class ReservationPaymentActivity extends AppCompatActivity {
         reservationData.put("endTime", reservation.getEndTime());
         reservationData.put("price", reservation.getPrice());
         reservationData.put("paid", reservation.isPaid());
-        reservationData.put("timestamp", FieldValue.serverTimestamp());
+        reservationData.put("paymentTimestamp", FieldValue.serverTimestamp());
+        reservationData.put("createdAt", FieldValue.serverTimestamp());
 
         db.collection("reservations")
                 .add(reservationData)
-                .addOnSuccessListener(documentReference ->
-                        Log.d("Firestore", "Reservation saved with ID: " + documentReference.getId()))
-                .addOnFailureListener(e ->
-                        Log.e("Firestore", "Error saving reservation", e));
+                .addOnSuccessListener(documentReference -> {
+                    Log.d("Firestore", "Reservation saved with ID: " + documentReference.getId());
+                    // You could store this reservation ID in your reservation object if needed
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error saving reservation", e);
+                    Toast.makeText(this, "Failed to save reservation", Toast.LENGTH_SHORT).show();
+                });
     }
 }

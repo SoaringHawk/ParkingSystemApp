@@ -11,4 +11,25 @@
     <!-- 自定义颜色 -->
     <color name="available_spot">#4CAF50</color>
     <color name="occupied_spot">#F44336</color>
+
+
+        <color name="primary">#6200EE</color>
+        <color name="primary_dark">#3700B3</color>
+        <color name="background">#F5F5F5</color>
+        <color name="primary_text">#212121</color>
+        <color name="secondary_text">#757575</color>
+
+    <color name="green">#7CDB0E</color>
+    <color name="red">#EB0707</color>
+    <color name="primary_light">#F1E8FF</color>
+
+    <color name="light_green">#E8F5E9</color>
+
+    <color name="light_red">#FFEBEE</color>
+    <color name="green_light">#E8F5E9</color>
+    <color name="green_dark">#2E7D32</color>
+    <color name="red_light">#FFEBEE</color>
+    <color name="red_dark">#C62828</color>
+
+
 </resources>

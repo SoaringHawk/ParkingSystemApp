@@ -1,37 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp">
+    android:background="@color/background"
+    android:padding="24dp">
 
+    <!-- App Logo with elevation -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="8dp"
+        android:layout_marginBottom="24dp">
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/parkinglogo" />
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/parkinglogo"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/app_logo_desc" />
+    </com.google.android.material.card.MaterialCardView>
 
+    <!-- App title with better typography -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Parking Reservation App"
+        android:text="@string/welcome_title"
         android:textSize="24sp"
-        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+
+        android:textAlignment="center"
         android:layout_marginBottom="32dp"/>
 
-    <Button
-        android:id="@+id/btnAdmin"
-        android:layout_width="match_parent"
+    <!-- Subtitle for better context -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Admin"
-        android:layout_marginBottom="16dp"/>
+        android:text="@string/welcome_subtitle"
+        android:textSize="16sp"
+        android:textColor="@color/secondary_text"
 
-    <Button
+        android:textAlignment="center"
+        android:layout_marginBottom="48dp"/>
+
+    <!-- Modern Material buttons with icons -->
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCustomer"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/customer"
+        android:textSize="18sp"
+        app:icon="@drawable/ic_customer"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:backgroundTint="@color/primary"/>
+
+    <!-- Footer text -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Customer"/>
+        android:text="@string/version_info"
+        android:textSize="12sp"
+        android:textColor="@color/secondary_text"
+        android:layout_marginTop="32dp"/>
 </LinearLayout>

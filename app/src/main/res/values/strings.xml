@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ParkingSystemV3</string>
+
 
     <!-- 主界面 -->
     <string name="available_spots">可用停车位</string>
@@ -21,4 +21,14 @@
     <string name="alipay">支付宝</string>
     <string name="bank_card_pay">银行卡支付</string>
     <string name="pay_now">立即支付</string>
+
+    <string name="app_name">Parking Reservation</string>
+    <string name="app_logo_desc">Parking Reservation App Logo</string>
+    <string name="welcome_title">Welcome to Parking Reservation</string>
+    <string name="welcome_subtitle">Reserve your spot with ease</string>
+    <string name="admin">Admin</string>
+    <string name="customer">Customer</string>
+    <string name="version_info">Version 1.0.0</string>
+    <string name="paid">PAID</string>
+    <string name="pending">PENDING</string>
 </resources>

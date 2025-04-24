@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ParkingReservationApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AllReservationsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ReservationPaymentActivity"
             android:exported="false" />
         <activity
