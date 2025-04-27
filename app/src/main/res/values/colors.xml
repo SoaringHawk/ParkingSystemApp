@@ -30,6 +30,8 @@
     <color name="green_dark">#2E7D32</color>
     <color name="red_light">#FFEBEE</color>
     <color name="red_dark">#C62828</color>
+    <color name="available">#4CAF50</color> <!-- Green -->
+    <color name="occupied">#F44336</color> <!-- Red -->
 
 
 </resources>

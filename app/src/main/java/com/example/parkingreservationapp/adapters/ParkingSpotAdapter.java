@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parkingreservationapp.R;
@@ -18,13 +19,13 @@ import java.util.List;
 public class ParkingSpotAdapter extends RecyclerView.Adapter<ParkingSpotAdapter.ViewHolder> {
     private List<ParkingSpot> parkingSpots;
     private Context context;
-    private OnItemClickListener listener;
+    private OnSpotClickListener listener;
 
-    public interface OnItemClickListener {
-        void onItemClick(ParkingSpot parkingSpot);
+    public interface OnSpotClickListener {
+        void onSpotClick(ParkingSpot spot);
     }
 
-    public ParkingSpotAdapter(List<ParkingSpot> parkingSpots, Context context, OnItemClickListener listener) {
+    public ParkingSpotAdapter(List<ParkingSpot> parkingSpots, Context context, OnSpotClickListener listener) {
         this.parkingSpots = parkingSpots;
         this.context = context;
         this.listener = listener;
@@ -33,7 +34,8 @@ public class ParkingSpotAdapter extends RecyclerView.Adapter<ParkingSpotAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.parking_spot_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_parking_spot, parent, false);
         return new ViewHolder(view);
     }
 
@@ -42,10 +44,18 @@ public class ParkingSpotAdapter extends RecyclerView.Adapter<ParkingSpotAdapter.
         ParkingSpot spot = parkingSpots.get(position);
         holder.spotId.setText(spot.getId());
         holder.spotLocation.setText(spot.getLocation());
-        holder.spotStatus.setText(spot.isAvailable() ? "Available" : "Occupied");
 
-
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(spot));
+        // Set different appearance for available vs occupied spots
+        if (spot.isAvailable()) {
+            holder.itemView.setAlpha(1f);
+            holder.itemView.setClickable(true);
+            holder.itemView.setOnClickListener(v -> listener.onSpotClick(spot));
+            holder.statusIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.available));
+        } else {
+            holder.itemView.setAlpha(0.6f);
+            holder.itemView.setClickable(false);
+            holder.statusIndicator.setBackgroundColor(ContextCompat.getColor(context, R.color.occupied));
+        }
     }
 
     @Override
@@ -54,15 +64,14 @@ public class ParkingSpotAdapter extends RecyclerView.Adapter<ParkingSpotAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView spotId;
-        TextView spotLocation;
-        TextView spotStatus;
+        TextView spotId, spotLocation;
+        View statusIndicator;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             spotId = itemView.findViewById(R.id.spotId);
             spotLocation = itemView.findViewById(R.id.spotLocation);
-            spotStatus = itemView.findViewById(R.id.spotStatus);
+            statusIndicator = itemView.findViewById(R.id.statusIndicator);
         }
     }
 }

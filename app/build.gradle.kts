@@ -37,6 +37,10 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.stripe:stripe-android:20.45.0")
     implementation ("com.google.android.material:material:1.6.0")
+    implementation ("com.stripe:stripe-android:20.36.1")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3") // For API calls
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10") // For JSON parsing
+
     //for animaiton of splash screen
     implementation ("com.airbnb.android:lottie:6.4.0")
 
