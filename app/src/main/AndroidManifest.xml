@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ParkingReservationApp"
         tools:targetApi="31">
         <activity
+            android:name=".StripeCheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AllReservationsActivity"
             android:exported="false" />
         <activity
@@ -22,14 +28,17 @@
             android:name=".Myreservation"
             android:exported="false" /> <!-- Set WelcomeActivity as the launcher activity -->
         <activity
-            android:name=".activities.WelcomeActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Declare new activities -->
+        </activity>
+        <activity
+            android:name=".activities.WelcomeActivity"
+            android:exported="false" />
         <activity android:name=".activities.AdminLoginActivity" />
         <activity android:name=".activities.AdminDashboardActivity" /> <!-- Other existing activities -->
         <activity android:name=".activities.MainActivity" />

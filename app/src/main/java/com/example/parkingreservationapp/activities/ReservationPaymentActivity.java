@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.stripe.android.PaymentConfiguration;
 
 public class ReservationPaymentActivity extends AppCompatActivity {
 
@@ -35,7 +36,15 @@ public class ReservationPaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //initialization  -> public API from stripe
+        PaymentConfiguration.init(
+                getApplicationContext(),
+                "pk_test_51RIX0NRqSd7Ged72q0KKipKqbf9oGuGs2hPEK5xsYYQJz1U9g7uGwETrHNmUWNePfsZIngjtQ7OlGzNmjxcsVdzh00JLk5WVdL"  // 你的Publishable Key
+        );
+
         setContentView(R.layout.activity_reservation_payment);
+
+
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
@@ -139,6 +148,18 @@ public class ReservationPaymentActivity extends AppCompatActivity {
             return;
         }
 
+        if (!name.matches("^[a-zA-Z ]+$")) {
+            Toast.makeText(this, "Name cannot contain numbers or sumbols.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        licensePlate = licensePlate.toUpperCase();
+
+        if (!licensePlate.matches("^[A-Z0-9]{6,8}$")) {
+            Toast.makeText(this, "@", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!endTime.after(startTime)) {
             Toast.makeText(this, "End time must be after start time", Toast.LENGTH_SHORT).show();
             return;
@@ -158,7 +179,7 @@ public class ReservationPaymentActivity extends AppCompatActivity {
                 "License Plate: " + licensePlate + "\n" +
                 "Start: " + TimeUtils.formatDateTime(startTime) + "\n" +
                 "End: " + TimeUtils.formatDateTime(endTime) + "\n" +
-                "Price: ¥" + price;
+                "Price: $" + price;
 
         tvReservationDetails.setText(summary);
         btnConfirmAndPay.setText("Complete Payment");
@@ -178,26 +199,59 @@ public class ReservationPaymentActivity extends AppCompatActivity {
             Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (paymentType.equals("cash")) {
+            // cash -> origin way -> Toast and finish
+            PaymentProcessor processor = new PaymentAdapter(paymentType);
+            processor.processPayment(reservation.getPrice());
 
-        PaymentProcessor processor = new PaymentAdapter(paymentType);
-        processor.processPayment(reservation.getPrice());
+            reservation.setPaid(true);
 
-        reservation.setPaid(true);
+            // Update parking spot availability in Firestore
+            updateParkingSpotInFirestore(reservation.getParkingSpot().getId(), false, endTime);
 
-        // Update parking spot availability in Firestore
-        updateParkingSpotInFirestore(reservation.getParkingSpot().getId(), false, endTime);
+            // Save the reservation to Firestore
+            saveReservationToFirestore();
 
-        // Save the reservation to Firestore
-        saveReservationToFirestore();
+            // Return the spot ID to MainActivity
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("spotId", reservation.getParkingSpot().getId());
+            setResult(RESULT_OK, resultIntent);
 
-        // Return the spot ID to MainActivity
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("spotId", reservation.getParkingSpot().getId());
-        setResult(RESULT_OK, resultIntent);
 
-        Toast.makeText(this, "Payment successful! Reservation created.", Toast.LENGTH_SHORT).show();
-        finish();
+            Toast.makeText(this, "Payment successful! Reservation created.", Toast.LENGTH_SHORT).show();
+            finish();
+
+
+        } else if (paymentType.equals("creditcard")) {
+            // Stripe  credit car payment
+            Intent intent = new Intent(this, StripeCheckoutActivity.class);
+            intent.putExtra("amount", (int)(reservation.getPrice() * 100)); // Stripe要分单位，1$ = 100cents
+            intent.putExtra("spotId", reservation.getParkingSpot().getId());
+            startActivity(intent);
+        }
+
+
+//        PaymentProcessor processor = new PaymentAdapter(paymentType);
+//        processor.processPayment(reservation.getPrice());
+//
+//        reservation.setPaid(true);
+//
+//        // Update parking spot availability in Firestore
+//        updateParkingSpotInFirestore(reservation.getParkingSpot().getId(), false, endTime);
+//
+//        // Save the reservation to Firestore
+//        saveReservationToFirestore();
+//
+//        // Return the spot ID to MainActivity
+//        Intent resultIntent = new Intent();
+//        resultIntent.putExtra("spotId", reservation.getParkingSpot().getId());
+//        setResult(RESULT_OK, resultIntent);
+//
+//        Toast.makeText(this, "Payment successful! Reservation created.", Toast.LENGTH_SHORT).show();
+//        finish();
     }
+
+
 
     private void updateParkingSpotInFirestore(String spotId, boolean isAvailable, Date reservedUntil) {
         Map<String, Object> updates = new HashMap<>();

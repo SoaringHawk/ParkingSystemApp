@@ -37,6 +37,12 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.stripe:stripe-android:20.45.0")
     implementation ("com.google.android.material:material:1.6.0")
+    //for animaiton of splash screen
+    implementation ("com.airbnb.android:lottie:6.4.0")
+
+
+
+
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -44,6 +50,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
+    implementation(libs.volley)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

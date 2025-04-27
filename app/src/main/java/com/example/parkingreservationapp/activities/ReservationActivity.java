@@ -76,7 +76,7 @@ public class ReservationActivity extends AppCompatActivity {
         btnSelectDate = findViewById(R.id.btnSelectDate);
         btnSelectStartTime = findViewById(R.id.btnSelectStartTime);
         btnSelectEndTime = findViewById(R.id.btnSelectEndTime);
-        btnConfirm = findViewById(R.id.btnConfirm);
+        btnConfirm = findViewById(R.id.btnConfirmAndPay);
 
         // Display the parking spot information retrieved from the previous activity
         tvSpotInfo.setText("Reserve parking spot: " + spotId);
@@ -161,41 +161,37 @@ public class ReservationActivity extends AppCompatActivity {
         String name = etName.getText().toString().trim();
         String licensePlate = etLicensePlate.getText().toString().trim();
 
+
+        boolean isValid = true;
+
         if (name.isEmpty() || licensePlate.isEmpty()) {
             Toast.makeText(this, "Please enter your name and license plate number.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!name.matches("^[a-zA-Z ]+$")) {
+            isValid = false;
+        } else if (!name.matches("^[a-zA-Z ]+$")) {
             Toast.makeText(this, "Name cannot contain numbers or symbols.", Toast.LENGTH_SHORT).show();
-            return;
+            isValid = false;
+        } else {
+            licensePlate = licensePlate.toUpperCase();
+            if (!licensePlate.matches("^[A-Z0-9]{6,8}$")) {
+                Toast.makeText(this, "License plate must be 6–8 characters (A-Z, 0–9 only).", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            } else if (selectedDate == null) {
+                Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            } else if (btnSelectStartTime.getText().toString().equals("Select Start Time") || startTime == null) {
+                Toast.makeText(this, "Please select a start time.", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            } else if (btnSelectEndTime.getText().toString().equals("Select End Time") || endTime == null) {
+                Toast.makeText(this, "Please select an end time.", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            } else if (!endTime.after(startTime)) {
+                Toast.makeText(this, "End time must be after start time.", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            }
         }
 
-        licensePlate = licensePlate.toUpperCase();
-
-        if (!licensePlate.matches("^[A-Z0-9]{6,8}$")) {
-            Toast.makeText(this, "License plate must be 6–8 characters (A-Z, 0–9 only).", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
-        if (selectedDate == null) {
-            Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (btnSelectStartTime.getText().toString().equals("Select Start Time") || startTime == null) {
-            Toast.makeText(this, "Please select a start time.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (btnSelectEndTime.getText().toString().equals("Select End Time") || endTime == null) {
-            Toast.makeText(this, "Please select an end time.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!endTime.after(startTime)) {
-            Toast.makeText(this, "End time must be after start time.", Toast.LENGTH_SHORT).show();
+        if (!isValid) {
+            // as long as there is one not match, return and not create reservation;
             return;
         }
 
@@ -210,6 +206,7 @@ public class ReservationActivity extends AppCompatActivity {
         Reservation reservation = new Reservation(user, parkingSpot, startTime, endTime, price);
 
         // Go directly to PaymentActivity with the reservation
+        //This is Wrong!!!!Already modify, before it Jump out of the restrict go here directly
         showReceiptDialog(reservation);
     }
 
@@ -217,7 +214,7 @@ public class ReservationActivity extends AppCompatActivity {
      * Displays an AlertDialog containing the reservation details as an electronic receipt.
      * Once the user confirms, navigates back to the main activity.
      *
-     * @param reservation the Reservation object to display
+     *
      */
     private void showReceiptDialog(Reservation reservation) {
         String message = "Reservation Receipt:\n\n" +

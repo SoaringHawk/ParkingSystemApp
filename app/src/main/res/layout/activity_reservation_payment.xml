@@ -65,12 +65,16 @@
             app:startIconDrawable="@drawable/ic_person"
             app:startIconTint="@color/primary">
 
+            <!-- PLEASE!!!! DO NOT!! PUT android:inputType="textPersonName" in
+             ANY!!!!PLACE!!! IT WILL CAUSE MY VERIFICATION FUNCITON
+             NOT WORK!!-->
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
-                android:inputType="textPersonName"/>
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- License Plate Input -->
@@ -108,18 +112,20 @@
             android:layout_marginBottom="16dp">
 
             <!-- Date Selection -->
+
+            <!-- Start Time -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSelectDate"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:text="Select Date"
+                android:textSize="16sp"
                 app:icon="@drawable/ic_calendar"
-                app:iconGravity="textStart"
-                android:layout_marginEnd="8dp"/>
+                app:iconGravity="textStart" />
 
-            <!-- Start Time -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSelectStartTime"
                 style="@style/Widget.Material3.Button.OutlinedButton"
@@ -127,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Start Time"
+                android:textSize="16sp"
                 app:icon="@drawable/ic_time_start"
                 app:iconGravity="textStart"/>
         </LinearLayout>
@@ -138,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="End Time"
+            android:textSize="16sp"
             app:icon="@drawable/ic_time_end"
             app:iconGravity="textStart"
             android:layout_marginBottom="16dp"/>
@@ -168,7 +176,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="No reservation details available"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -217,6 +225,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Confirm and Pay"
+            android:textSize="16sp"
+
             app:backgroundTint="@color/primary"
             android:textColor="@color/white"
             android:layout_marginBottom="16dp"/>
@@ -227,6 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Cancel"
+            android:textSize="20sp"
             android:textColor="@color/primary"/>
     </LinearLayout>
 </ScrollView>

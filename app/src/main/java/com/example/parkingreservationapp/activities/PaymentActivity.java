@@ -72,7 +72,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         reservation.setPaid(true);
 
-        // ✅ Set result to send back to ReservationActivity
+        //Set result to send back to ReservationActivity
         Intent resultIntent = new Intent();
         resultIntent.putExtra("spotId", reservation.getParkingSpot().getId());
         setResult(RESULT_OK, resultIntent);
