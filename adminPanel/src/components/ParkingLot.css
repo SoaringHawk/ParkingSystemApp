@@ -5,6 +5,10 @@
   border-bottom: 1px solid #ddd;
 }
 
+html, body {
+  width: 100vw;
+}
+
 .tab-button {
   padding: 10px 20px;
   background: none;
@@ -80,7 +84,17 @@
   color: #4285f4; /* Active tab text color */
 }
 
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100vw;
+}
+
 .table-container {
+  width: 100%;
   overflow-x: auto;
   margin-top: 20px;
   background: white;
